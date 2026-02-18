@@ -5,10 +5,17 @@ public class Bucle7 {
 	public static long bucle4(int n) {
 		long cont = 0;
 		for (int i = 1; i <= n; i++) {
+<<<<<<< HEAD
 			for (int j = 1; j <= i; j++) {
 				for (int k = 1; k <= j; k++) {
 					for (int z = 1; z <= k; z++) {
 						cont++;
+=======
+			for (int j = 1; j <= n; j++) {
+				for (int k = 1; k <= n; k++) {
+					for (int z = 1; z <= n; z++) {
+					cont++;
+>>>>>>> 5895c88e9258b699d1868037c738edfd181e0da1
 					}
 				}
 			}

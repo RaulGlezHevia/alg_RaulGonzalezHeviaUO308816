@@ -4,6 +4,7 @@ public class Bucle5 {
 
 	public static long bucle4(int n) {
 		long cont = 0;
+<<<<<<< HEAD
 		for (int k = 1; k <= n; k++) {
 			for (int z =1; z <=n;z++) {
 				for (int i = 1; i <= n; i=i*2) {
@@ -14,6 +15,15 @@ public class Bucle5 {
 			}
 		}
 		
+=======
+		for (int i = 1; i <= n; i++) {
+			for (int j = 1; j <= n; j++) {
+				for (int k = 1; k <= n; k=k*2) {
+					cont++;
+				}
+			}
+		}
+>>>>>>> 5895c88e9258b699d1868037c738edfd181e0da1
 		return cont;
 
 	}

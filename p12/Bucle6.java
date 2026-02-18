@@ -4,9 +4,15 @@ public class Bucle6 {
 
 	public static long bucle4(int n) {
 		long cont = 0;
+<<<<<<< HEAD
 		for (int k = 1; k <= n*n; k++) {
 			for (int i = 1; i <= n; i++) {
 				for (int j = 1; j <= n; j=j*2) {
+=======
+		for (int i = 1; i <= n*n; i++) {
+			for (int j = 1; j <= n; j++) {
+				for (int k = 1; k <= n; k=k*2) {
+>>>>>>> 5895c88e9258b699d1868037c738edfd181e0da1
 					cont++;
 				}
 			}
