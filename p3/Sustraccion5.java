@@ -1,29 +1,28 @@
 package p3;
 
-public class Division1
+public class Sustraccion5
 {
-
 static long cont;
-//Complejidad k=1 a =1 b=3
-// O(n)
+
 public static void rec1 (int n)
-{ 
+{
 	if (n<=0) 
 		cont++;
-	else
+	else 
 	{ 
-		for (int i=1;i<n;i++) cont++ ;  //O(n)    
-		rec1 (n/3);
-}
-	   
+		cont++;  // O(1)=O(n**0)
+		rec1 (n-2);
+		rec1 (n-2);
+		rec1 (n-2);
 	}
+}
 
 public static void main (String arg []) 
 {
 	long t1,t2,cont;
 	int nVeces= Integer.parseInt (arg [0]);
-
-	for (int n=1000000;n<=1024000000;n*=2)
+	
+	for (int n=20;n<=40;n+=2)
 	{
 		t1 = System.currentTimeMillis ();
 
