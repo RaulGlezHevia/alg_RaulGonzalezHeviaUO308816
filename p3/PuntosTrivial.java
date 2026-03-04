@@ -32,17 +32,19 @@ public static void main (String arg [])
 
 	for (int i = 0; i<lista.size(); i++) {
 		for (int j = 0; j<lista.size();j++) {
-			double distanciaLocal = compararPos(lista.get(i), lista.get(j));
-			if (distanciaLocal<distancia) {
+			if (i!=j) {
+				double distanciaLocal = compararPos(lista.get(i), lista.get(j));
+				if (distanciaLocal<distancia) {
 				pos1 = i;
 				pos2 = j;
 				distancia = distanciaLocal;
+				}
 			}
 		}
 	}
 
-	System.out.print("PUNTOS MÁS CERCANOS: "+lista.get(pos1)+" "+lista.get(pos2));
-	System.out.print("SU DISTANCIA MÍNIMA: "+distancia);
+	System.out.print("PUNTOS MÁS CERCANOS: ["+lista.get(pos1)[0]+","+lista.get(pos1)[1]+"] ["+lista.get(pos2)[0]+","+lista.get(pos2)[1]+"] \n");
+	System.out.print("SU DISTANCIA MÍNIMA: "+distancia+"\n");
 }  // main 
 	
 
@@ -51,8 +53,7 @@ public static double compararPos(double[] pos1, double[] pos2) {
 }
 
 public static List<double[]> leerArchivo(String filename) throws FileNotFoundException, IOException {
-	List<double[]> list
-            = new ArrayList<double[]>();
+	List<double[]> list = new ArrayList<double[]>();
       
         // load data from file
         BufferedReader bf = new BufferedReader(
@@ -60,13 +61,14 @@ public static List<double[]> leerArchivo(String filename) throws FileNotFoundExc
       
         // read entire line as string
         String line = bf.readLine();
-      
+		
+		line = bf.readLine();
         // checking for end of file
         while (line != null) {
 			String[] split = line.split(",");
 			double[] tupla = {Double.valueOf(split[0]), Double.valueOf(split[1])};
             list.add(tupla);
-            line = bf.readLine();
+			line = bf.readLine();
         }
       
         // closing bufferreader object
