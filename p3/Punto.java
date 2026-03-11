@@ -19,6 +19,4 @@ public class Punto implements Comparable<Punto> {
 			return 0;
 		}
 	}
-
-	
 }
