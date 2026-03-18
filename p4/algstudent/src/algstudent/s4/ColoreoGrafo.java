@@ -30,6 +30,7 @@ public class ColoreoGrafo {
 						while (!(colores[color]==colorString)) {
 							color++;
 						}
+						color++;
 					}
 					if (color>highestColor) {
 						highestColor = color;
