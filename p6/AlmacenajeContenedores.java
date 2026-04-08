@@ -20,7 +20,7 @@ public class AlmacenajeContenedores {
     public AlmacenajeContenedores(int capacidadC2, Integer[] conjuntoS2) {
         this.capacidadC = capacidadC2;
         this.conjuntoS = conjuntoS2;
-        mejorK = conjuntoS.length;
+        mejorK = Integer.MAX_VALUE;
         Arrays.sort(this.conjuntoS,Collections.reverseOrder());
         
 
@@ -31,29 +31,36 @@ public class AlmacenajeContenedores {
     }
 
     public static void main(String[] args) throws FileNotFoundException {
-        //Scanner sc = new Scanner(new FileReader(args[0]));
-        //Scanner sc = new Scanner("test00.txt");
-        //int capacidadC = sc.nextInt();
-        //String[] parts = sc.nextLine().split(" ");
-        //Integer[] conjuntoS = new Integer[parts.length];
+        Scanner sc = new Scanner(new FileReader(args[0]));
+        int capacidadC = sc.nextInt();
+        
+        List<Integer> parts = new ArrayList<Integer>();
 
-        //for (int i = 0; i<conjuntoS.length; i++) {
-        //    conjuntoS[i] = Integer.parseInt(parts[i]);
-        //}
+        while (sc.hasNextInt()) {
+            parts.add(sc.nextInt());
+        }
+        Integer[] conjuntoS = new Integer[parts.size()];
 
-        int capacidadC = 10;
-        Integer[] conjuntoS = new Integer[] {7, 2, 3, 8};
+        for (int i = 0; i<conjuntoS.length; i++) {
+            conjuntoS[i] = parts.get(i);
+        }
+        sc.close();
+
+        //int capacidadC = 10;
+        //Integer[] conjuntoS = new Integer[] {7, 6, 5, 5, 4, 3, 2};
+        
+        
 
         AlmacenajeContenedores ac = new AlmacenajeContenedores(capacidadC, conjuntoS);
         ac.solve();
     }
 
-    private void solve() {
+    public void solve() {
         backtracking(0, new ArrayList<List<Integer>>());
         print();
     }
 
-    private void print() {
+    public void print() {
         System.out.println("Lista de contenedores y objetos contenidos: ");
         for (int i = 0 ; i<mejorDistribucion.size();i++) {
             System.out.println("Contenedor "+i+": "+mejorDistribucion.get(i).toString());
@@ -67,6 +74,7 @@ public class AlmacenajeContenedores {
 
     private void backtracking(int index, List<List<Integer>> contenedores) {
         numeroDeLlamadasRecursivas++;
+
         // caso base
         if (index==conjuntoS.length) {
             if (mejorK>contenedores.size()) {
@@ -81,6 +89,7 @@ public class AlmacenajeContenedores {
             return;
         }
 
+        
         for (int i = 0; i<contenedores.size(); i++) {
             if (suma(contenedores.get(i))+conjuntoS[index] <= capacidadC) {
                 contenedores.get(i).add(conjuntoS[index]);
@@ -91,13 +100,15 @@ public class AlmacenajeContenedores {
             }
         }
         
-        List<Integer> nuevoContenedor = new ArrayList<Integer>();
-        nuevoContenedor.add(conjuntoS[index]);
-        contenedores.add(nuevoContenedor);
-        //Avanzar
-        backtracking(index+1, copy(contenedores));
-        //Retroceder
-        contenedores.remove(contenedores.size()-1);
+        if (contenedores.size()+1 <mejorK) {
+            List<Integer> nuevoContenedor = new ArrayList<Integer>();
+            nuevoContenedor.add(conjuntoS[index]);
+            contenedores.add(nuevoContenedor);
+            //Avanzar
+            backtracking(index+1, copy(contenedores));
+            //Retroceder
+            contenedores.remove(contenedores.size()-1);
+        }
     }
 
     private boolean sumaContenedores(List<List<Integer>> contenedores) {
@@ -112,7 +123,11 @@ public class AlmacenajeContenedores {
         List<List<Integer>> newContenedores = new ArrayList<List<Integer>>();
 
         for (List<Integer> e : contenedores) {
-            newContenedores.add(e);
+            List<Integer> newList = new ArrayList<Integer>();
+            for (int i = 0; i<e.size();i++) {
+                newList.add(e.get(i)); 
+            }
+            newContenedores.add(newList);
         }
 
         return newContenedores;
