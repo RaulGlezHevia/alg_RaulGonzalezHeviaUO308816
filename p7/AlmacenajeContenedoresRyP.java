@@ -31,7 +31,7 @@ public class AlmacenajeContenedoresRyP {
     }
 
     public static void main(String[] args) throws FileNotFoundException {
-        Scanner sc = new Scanner("test00.txt");
+        Scanner sc = new Scanner(new FileReader("test00.txt"));
         int capacidadC = sc.nextInt();
         
         List<Integer> parts = new ArrayList<Integer>();
@@ -111,6 +111,12 @@ public class AlmacenajeContenedoresRyP {
 
     public void print() {
         System.out.println("Lista de contenedores y objetos contenidos: ");
+
+        if (mejorDistribucion==null) {
+            System.out.println("No se ha encontrado solucion");
+            return;
+        }
+
         for (int i = 0 ; i<mejorDistribucion.size();i++) {
             System.out.println("Contenedor "+i+": "+mejorDistribucion.get(i).toString());
         }
@@ -137,10 +143,10 @@ public class AlmacenajeContenedoresRyP {
         int lowerBound = (sumaRestante + capacidadC-1) / capacidadC;
 
         
-        if (contenedores.size()+lowerBound >= mejorK) return;
+        if (contenedores.size()+lowerBound > mejorK) return;
         // caso base
         if (index==conjuntoS.length) {
-            if (mejorK>contenedores.size()) {
+            if (mejorK>=contenedores.size()) {
                 mejorK = contenedores.size();
                 mejorDistribucion = copy(contenedores);
             }
@@ -154,7 +160,7 @@ public class AlmacenajeContenedoresRyP {
             if (suma(contenedores.get(i))+conjuntoS[index] <= capacidadC) {
                 contenedores.get(i).add(conjuntoS[index]);
                 //Avanzar
-                backtracking(index+1, copy(contenedores), sumaRestante-conjuntoS[index]);
+                backtracking(index+1, contenedores, sumaRestante-conjuntoS[index]);
                 //Retroceder
                 contenedores.get(i).remove(contenedores.get(i).size() -1);
             }
@@ -165,7 +171,7 @@ public class AlmacenajeContenedoresRyP {
             nuevoContenedor.add(conjuntoS[index]);
             contenedores.add(nuevoContenedor);
             //Avanzar
-            backtracking(index+1, copy(contenedores), sumaRestante-conjuntoS[index]);
+            backtracking(index+1, contenedores, sumaRestante-conjuntoS[index]);
             //Retroceder
             contenedores.remove(contenedores.size()-1);
         }
